@@ -1,0 +1,543 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Legionellosis: County and Population in Ohio},
+            pdfauthor={David Hibler},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Legionellosis: County and Population in Ohio}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{David Hibler}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{December 3, 2019}
+
+
+\begin{document}
+\maketitle
+
+\hypertarget{data}{%
+\section{Data}\label{data}}
+
+\hypertarget{obtaining-and-processing-the-data}{%
+\subsection{Obtaining and Processing the
+Data}\label{obtaining-and-processing-the-data}}
+
+pop\_2010 = Ohio county population from
+\href{https://www.census.gov/quickfacts/OH}{2010 census}.\\
+pop\_2018 =
+\href{http://worldpopulationreview.com/states/ohio/}{Estimated Ohio
+county population}. Retrieved 2019-01-24, from
+\url{http://worldpopulationreview.com/states/ohio/}\\
+pop\_dens = Population density calculated from 2018 population and
+county area in sq miles.\\
+ln\_2018\_pop = The calculated natural log of the 2018 population.\\
+ln\_pop\_density = The calculated natural log of the 2018 population
+density.\\
+pop\_dif = The calculated change in population from 2010 to 2018.\\
+abs\_pop\_dif = The absolute value of change in population from 2010 to
+2018.\\
+l\_2017 = Reported Legionellosis infections in 2017 gathered from the
+\href{https://odh.ohio.gov/wps/portal/gov/odh/know-our-programs/infectious-diseases/Reports/2017-annual-summary}{Ohio
+Department of Health Infections Diseases Report}.\\
+l\_2018 = Reported Legionellosis infections in 2018 that was specially
+disclosed by the Ohio Department of Health and is not yet available
+online, so was not used in this project.
+
+Data set calculations (such as population densities and natural logs)
+were done in excell and then the data set was saved as a csv file to be
+analyzed in R.
+
+\hypertarget{analyzing-the-data}{%
+\subsection{Analyzing the Data}\label{analyzing-the-data}}
+
+Data sets were ploted for visual examination, and correlational tests
+(such as Pearson's, Kendall's, and Spearman's) were run to check for
+signifigance.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{37}\NormalTok{)}
+
+\KeywordTok{setwd}\NormalTok{(}\StringTok{"C:/Users/hible/Documents/School/Pubhealth/PUBHLTH 8802 - GISD sem"}\NormalTok{)      }
+
+\NormalTok{my_data <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"ohio_ld_2018.csv"}\NormalTok{, }\DataTypeTok{header=}\OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{l_}\DecValTok{2017}\NormalTok{_v <-}\StringTok{ }\NormalTok{my_data}\OperatorTok{$}\NormalTok{l_}\DecValTok{2017}
+\NormalTok{pop_}\DecValTok{2018}\NormalTok{_v <-}\StringTok{ }\NormalTok{my_data}\OperatorTok{$}\NormalTok{pop_}\DecValTok{2018}
+\NormalTok{pop_density_v <-}\StringTok{ }\NormalTok{my_data}\OperatorTok{$}\NormalTok{pop_density}
+\NormalTok{ln_}\DecValTok{2018}\NormalTok{_pop_v <-}\StringTok{ }\NormalTok{my_data}\OperatorTok{$}\NormalTok{ln_}\DecValTok{2018}\NormalTok{_pop}
+\NormalTok{ln_pop_density_v <-}\StringTok{ }\NormalTok{my_data}\OperatorTok{$}\NormalTok{ln_pop_density}
+
+\NormalTok{cor_p_values <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{nrow=}\DecValTok{3}\NormalTok{, }\DataTypeTok{ncol=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{colnames}\NormalTok{(cor_p_values) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Infections vs Population"}\NormalTok{, }\StringTok{"Infections vs Pop_density"}\NormalTok{, }\StringTok{"Infections vs Ln_Pop"}\NormalTok{, }\StringTok{"Infections vs Ln_Pop_density"}\NormalTok{)}
+\KeywordTok{rownames}\NormalTok{(cor_p_values) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Pearson"}\NormalTok{, }\StringTok{"Kendall"}\NormalTok{, }\StringTok{"Spearman"}\NormalTok{)}
+
+\NormalTok{i_p_p <-}\StringTok{ }\KeywordTok{cor.test}\NormalTok{(l_}\DecValTok{2017}\NormalTok{_v,pop_}\DecValTok{2018}\NormalTok{_v, }\DataTypeTok{method =} \StringTok{"pearson"}\NormalTok{)}
+\NormalTok{cor_p_values[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{] <-}\StringTok{ }\NormalTok{i_p_p}\OperatorTok{$}\NormalTok{p.value}
+\NormalTok{i_p_k <-}\StringTok{ }\KeywordTok{cor.test}\NormalTok{(l_}\DecValTok{2017}\NormalTok{_v,pop_}\DecValTok{2018}\NormalTok{_v, }\DataTypeTok{method =} \StringTok{"kendall"}\NormalTok{)}
+\NormalTok{cor_p_values[}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{] <-}\StringTok{ }\NormalTok{i_p_k}\OperatorTok{$}\NormalTok{p.value}
+\NormalTok{i_p_s <-}\StringTok{ }\KeywordTok{cor.test}\NormalTok{(l_}\DecValTok{2017}\NormalTok{_v,pop_}\DecValTok{2018}\NormalTok{_v, }\DataTypeTok{method =} \StringTok{"spearman"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in cor.test.default(l_2017_v, pop_2018_v, method = "spearman"):
+## Cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cor_p_values[}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{] <-}\StringTok{ }\NormalTok{i_p_s}\OperatorTok{$}\NormalTok{p.value}
+
+\NormalTok{i_p_p <-}\StringTok{ }\KeywordTok{cor.test}\NormalTok{(l_}\DecValTok{2017}\NormalTok{_v,pop_density_v, }\DataTypeTok{method =} \StringTok{"pearson"}\NormalTok{)}
+\NormalTok{cor_p_values[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{] <-}\StringTok{ }\NormalTok{i_p_p}\OperatorTok{$}\NormalTok{p.value}
+\NormalTok{i_p_k <-}\StringTok{ }\KeywordTok{cor.test}\NormalTok{(l_}\DecValTok{2017}\NormalTok{_v,pop_density_v, }\DataTypeTok{method =} \StringTok{"kendall"}\NormalTok{)}
+\NormalTok{cor_p_values[}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{] <-}\StringTok{ }\NormalTok{i_p_k}\OperatorTok{$}\NormalTok{p.value}
+\NormalTok{i_p_s <-}\StringTok{ }\KeywordTok{cor.test}\NormalTok{(l_}\DecValTok{2017}\NormalTok{_v,pop_density_v, }\DataTypeTok{method =} \StringTok{"spearman"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in cor.test.default(l_2017_v, pop_density_v, method = "spearman"):
+## Cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cor_p_values[}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{] <-}\StringTok{ }\NormalTok{i_p_s}\OperatorTok{$}\NormalTok{p.value}
+
+\NormalTok{i_p_p <-}\StringTok{ }\KeywordTok{cor.test}\NormalTok{(l_}\DecValTok{2017}\NormalTok{_v,ln_}\DecValTok{2018}\NormalTok{_pop_v, }\DataTypeTok{method =} \StringTok{"pearson"}\NormalTok{)}
+\NormalTok{cor_p_values[}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{] <-}\StringTok{ }\NormalTok{i_p_p}\OperatorTok{$}\NormalTok{p.value}
+\NormalTok{i_p_k <-}\StringTok{ }\KeywordTok{cor.test}\NormalTok{(l_}\DecValTok{2017}\NormalTok{_v,ln_}\DecValTok{2018}\NormalTok{_pop_v, }\DataTypeTok{method =} \StringTok{"kendall"}\NormalTok{)}
+\NormalTok{cor_p_values[}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{] <-}\StringTok{ }\NormalTok{i_p_k}\OperatorTok{$}\NormalTok{p.value}
+\NormalTok{i_p_s <-}\StringTok{ }\KeywordTok{cor.test}\NormalTok{(l_}\DecValTok{2017}\NormalTok{_v,ln_}\DecValTok{2018}\NormalTok{_pop_v, }\DataTypeTok{method =} \StringTok{"spearman"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in cor.test.default(l_2017_v, ln_2018_pop_v, method = "spearman"):
+## Cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cor_p_values[}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{] <-}\StringTok{ }\NormalTok{i_p_s}\OperatorTok{$}\NormalTok{p.value}
+
+\KeywordTok{cor.test}\NormalTok{(l_}\DecValTok{2017}\NormalTok{_v,ln_pop_density_v, }\DataTypeTok{method =} \StringTok{"pearson"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's product-moment correlation
+## 
+## data:  l_2017_v and ln_pop_density_v
+## t = 7.8433, df = 86, p-value = 1.096e-11
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.5045721 0.7533242
+## sample estimates:
+##       cor 
+## 0.6457702
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{i_p_p <-}\StringTok{ }\KeywordTok{cor.test}\NormalTok{(l_}\DecValTok{2017}\NormalTok{_v,ln_pop_density_v, }\DataTypeTok{method =} \StringTok{"pearson"}\NormalTok{)}
+\NormalTok{cor_p_values[}\DecValTok{1}\NormalTok{,}\DecValTok{4}\NormalTok{] <-}\StringTok{ }\NormalTok{i_p_p}\OperatorTok{$}\NormalTok{p.value}
+\NormalTok{i_p_k <-}\StringTok{ }\KeywordTok{cor.test}\NormalTok{(l_}\DecValTok{2017}\NormalTok{_v,ln_pop_density_v, }\DataTypeTok{method =} \StringTok{"kendall"}\NormalTok{)}
+\NormalTok{cor_p_values[}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{] <-}\StringTok{ }\NormalTok{i_p_k}\OperatorTok{$}\NormalTok{p.value}
+\NormalTok{i_p_s <-}\StringTok{ }\KeywordTok{cor.test}\NormalTok{(l_}\DecValTok{2017}\NormalTok{_v,ln_pop_density_v, }\DataTypeTok{method =} \StringTok{"spearman"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in cor.test.default(l_2017_v, ln_pop_density_v, method =
+## "spearman"): Cannot compute exact p-value with ties
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cor_p_values[}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{] <-}\StringTok{ }\NormalTok{i_p_s}\OperatorTok{$}\NormalTok{p.value}
+
+\KeywordTok{print}\NormalTok{(cor_p_values)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          Infections vs Population Infections vs Pop_density
+## Pearson              1.425785e-39              2.109105e-30
+## Kendall              4.891875e-14              1.331731e-13
+## Spearman             1.727944e-15              1.073629e-14
+##          Infections vs Ln_Pop Infections vs Ln_Pop_density
+## Pearson          5.435431e-12                 1.096061e-11
+## Kendall          4.891875e-14                 1.331731e-13
+## Spearman         1.727944e-15                 1.073629e-14
+\end{verbatim}
+
+Infections were found to be highly significantly correlated with
+population size, population density,the natural log of the population
+size, and the natuarl log of the population density.
+
+\hypertarget{summary-stats}{%
+\section{Summary stats}\label{summary-stats}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# summarize the data}
+\KeywordTok{summary}\NormalTok{(my_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Ã¯..county       area           l_2018          pop_2010      
+##  Adams    : 1   Min.   :228.2   Min.   :  0.00   Min.   :  13319  
+##  Allen    : 1   1st Qu.:409.5   1st Qu.:  1.00   1st Qu.:  37312  
+##  Ashland  : 1   Median :439.1   Median :  3.00   Median :  57733  
+##  Ashtabula: 1   Mean   :464.4   Mean   : 10.57   Mean   : 131368  
+##  Athens   : 1   3rd Qu.:510.5   3rd Qu.:  8.00   3rd Qu.: 124145  
+##  Auglaize : 1   Max.   :702.4   Max.   :208.00   Max.   :1267513  
+##  (Other)  :82                                                     
+##     pop_2018        pop_density       ln_2018_pop     ln_pop_density 
+##  Min.   :  13142   Min.   :  31.26   Min.   : 9.484   Min.   :3.442  
+##  1st Qu.:  36946   1st Qu.:  83.94   1st Qu.:10.517   1st Qu.:4.429  
+##  Median :  57786   Median : 119.11   Median :10.964   Median :4.780  
+##  Mean   : 131929   Mean   : 292.84   Mean   :11.169   Mean   :5.047  
+##  3rd Qu.: 123526   3rd Qu.: 256.16   3rd Qu.:11.724   3rd Qu.:5.546  
+##  Max.   :1257401   Max.   :2742.48   Max.   :14.045   Max.   :7.917  
+##                                                                      
+##     pop_dif          abs_pop_dif        l_2017           inf_dif      
+##  Min.   :-10112.0   Min.   :    2   Min.   :  0.000   Min.   :-6.000  
+##  1st Qu.:  -633.5   1st Qu.:  244   1st Qu.:  1.000   1st Qu.: 0.000  
+##  Median :  -256.5   Median :  583   Median :  2.000   Median : 1.000  
+##  Mean   :   561.2   Mean   : 1880   Mean   :  6.602   Mean   : 3.966  
+##  3rd Qu.:    97.5   3rd Qu.: 1375   3rd Qu.:  5.000   3rd Qu.: 4.250  
+##  Max.   : 55915.0   Max.   :55915   Max.   :123.000   Max.   :85.000  
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(my_data}\OperatorTok{$}\NormalTok{l_}\DecValTok{2017}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6.602273
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(my_data}\OperatorTok{$}\NormalTok{pop_}\DecValTok{2018}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 131929
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(my_data}\OperatorTok{$}\NormalTok{pop_density)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 292.8386
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(my_data}\OperatorTok{$}\NormalTok{ln_}\DecValTok{2018}\NormalTok{_pop)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 11.16865
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(my_data}\OperatorTok{$}\NormalTok{ln_pop_density)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5.046705
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# histograms}
+\KeywordTok{hist}\NormalTok{(my_data}\OperatorTok{$}\NormalTok{l_}\DecValTok{2017}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Legionellosis_UvR_Ohio_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(my_data}\OperatorTok{$}\NormalTok{pop_}\DecValTok{2018}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Legionellosis_UvR_Ohio_files/figure-latex/unnamed-chunk-1-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(my_data}\OperatorTok{$}\NormalTok{pop_density)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Legionellosis_UvR_Ohio_files/figure-latex/unnamed-chunk-1-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# variances, these should match what we supplied in the covariance matrix}
+\KeywordTok{var}\NormalTok{(my_data}\OperatorTok{$}\NormalTok{l_}\DecValTok{2017}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 317.7825
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{var}\NormalTok{(my_data}\OperatorTok{$}\NormalTok{pop_}\DecValTok{2018}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 46858858822
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{var}\NormalTok{(my_data}\OperatorTok{$}\NormalTok{pop_density)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 222635.3
+\end{verbatim}
+
+\hypertarget{plot}{%
+\section{Plot}\label{plot}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{scatter.smooth}\NormalTok{(}\DataTypeTok{x=}\NormalTok{my_data}\OperatorTok{$}\NormalTok{pop_}\DecValTok{2018}\NormalTok{, }\DataTypeTok{y=}\NormalTok{my_data}\OperatorTok{$}\NormalTok{l_}\DecValTok{2017}\NormalTok{, }\DataTypeTok{main=}\StringTok{"l_2017 ~ pop_2018"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Legionellosis_UvR_Ohio_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{scatter.smooth}\NormalTok{(}\DataTypeTok{x=}\NormalTok{my_data}\OperatorTok{$}\NormalTok{pop_density, }\DataTypeTok{y=}\NormalTok{my_data}\OperatorTok{$}\NormalTok{l_}\DecValTok{2017}\NormalTok{, }\DataTypeTok{main=}\StringTok{"l_2017 ~ pop_density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Legionellosis_UvR_Ohio_files/figure-latex/unnamed-chunk-2-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{scatter.smooth}\NormalTok{(}\DataTypeTok{x=}\NormalTok{my_data}\OperatorTok{$}\NormalTok{ln_}\DecValTok{2018}\NormalTok{_pop, }\DataTypeTok{y=}\NormalTok{my_data}\OperatorTok{$}\NormalTok{l_}\DecValTok{2017}\NormalTok{, }\DataTypeTok{main=}\StringTok{"l_2017 ~ ln_2018_pop"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Legionellosis_UvR_Ohio_files/figure-latex/unnamed-chunk-2-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{scatter.smooth}\NormalTok{(}\DataTypeTok{x=}\NormalTok{my_data}\OperatorTok{$}\NormalTok{ln_pop_density, }\DataTypeTok{y=}\NormalTok{my_data}\OperatorTok{$}\NormalTok{l_}\DecValTok{2017}\NormalTok{, }\DataTypeTok{main=}\StringTok{"l_2017 ~ ln_pop_density"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Legionellosis_UvR_Ohio_files/figure-latex/unnamed-chunk-2-4.pdf}
+\# Linear regression
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{linearMod_pop <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(l_}\DecValTok{2017} \OperatorTok{~}\StringTok{ }\NormalTok{pop_}\DecValTok{2018}\NormalTok{, }\DataTypeTok{data=}\NormalTok{my_data)  }\CommentTok{# build linear regression model on full data}
+\KeywordTok{print}\NormalTok{(linearMod_pop)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = l_2017 ~ pop_2018, data = my_data)
+## 
+## Coefficients:
+## (Intercept)     pop_2018  
+##  -3.520e+00    7.672e-05
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{linearMod_popd <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(l_}\DecValTok{2017} \OperatorTok{~}\StringTok{ }\NormalTok{pop_density, }\DataTypeTok{data=}\NormalTok{my_data)  }\CommentTok{# build linear regression model on full data}
+\KeywordTok{print}\NormalTok{(linearMod_popd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = l_2017 ~ pop_density, data = my_data)
+## 
+## Coefficients:
+## (Intercept)  pop_density  
+##    -3.19690      0.03346
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{linearMod_lnpop <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(l_}\DecValTok{2017} \OperatorTok{~}\StringTok{ }\NormalTok{ln_}\DecValTok{2018}\NormalTok{_pop, }\DataTypeTok{data=}\NormalTok{my_data)  }\CommentTok{# build linear regression model on full data}
+\KeywordTok{print}\NormalTok{(linearMod_lnpop)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = l_2017 ~ ln_2018_pop, data = my_data)
+## 
+## Coefficients:
+## (Intercept)  ln_2018_pop  
+##     -123.59        11.66
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{linearMod_lnpopd <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(l_}\DecValTok{2017} \OperatorTok{~}\StringTok{ }\NormalTok{ln_pop_density, }\DataTypeTok{data=}\NormalTok{my_data)  }\CommentTok{# build linear regression model on full data}
+\KeywordTok{print}\NormalTok{(linearMod_lnpopd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = l_2017 ~ ln_pop_density, data = my_data)
+## 
+## Coefficients:
+##    (Intercept)  ln_pop_density  
+##         -51.54           11.52
+\end{verbatim}
+
+
+\end{document}

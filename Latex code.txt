@@ -1,0 +1,128 @@
+\documentclass []{ article}
+
+\usepackage[sort,comma,author,year,round]{natbib}
+\usepackage{amsmath}
+\usepackage[parfill]{parskip}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkbordercolor={white}
+    urlcolor = blue
+    }
+\usepackage{tensor}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+
+
+
+\title{Legionellosis: County and Population in Ohio}
+\author{David A. Hibler}
+\date{\today}
+
+
+
+\begin{document}
+\maketitle 
+
+\tableofcontents
+
+
+\section{Legionellosis}
+
+Legionellosis is a set of two respiratory diseases outcomes both caused by infections from the bactria \textit{Legionella}; Legionnaires' disease (LD), which is a community pneumonia and has a mortality rate of up to 30 percent (as high as 80 percent, with extreme cases), and Pontiac Fever, a non-pneumonia, flu-like illness that often self-limits after two to five days. 
+
+\smallskip
+
+\textit{Legionella} infections are rising dramatically, with \textit{Legionella pneumophila} (\textit{L. pneumophila}) representing a large proportion of the more than 40,000 waterborne disease cases reported annually. 8,000 to 18,000 hospitalizations of suspected \textit{L. pneumophila} occur every year in the US, at an expense of more than 433.8 million dollars in healthcare costs alone. Rural water distribution systems with older water age, compared to urban ones, often have more favorable conditions for the reproduction of a wide variety of microorganisms, including opportunistic pathogens such as \textit{L. pneumophila}.  However, concentrations of \textit{L. pneumophila} and rates of its associated diseases are presenting with much higher rates in urban areas as opposed to rural areas. 
+
+\smallskip
+
+Reasons for this are unknown, but this analysis examines the trends of legionellosis infections in Ohio counties by population.  
+
+\section{Data}
+The data used in this analysis was collected from several online data bases: 
+\begin{itemize}
+    \item \href{https://www.census.gov/quickfacts/OH}{US Census Bureau}
+    \item \href{http://worldpopulationreview.com/}{World Population Review}
+    \item \href{https://odh.ohio.gov/wps/portal/gov/odh/know-our-programs/infectious-diseases/Reports/2017-annual-summary}{Ohio Department of Health}
+\end{itemize}
+
+\subsection{Data Processing}
+\begin{itemize}
+\item pop\_2010: Ohio county population from 2010 census.
+\item pop\_2018: Estimated Ohio county population. Retrieved 2019-01-24, from worldpopulationreview.com 
+\item pop\_dens: Population density calculated from 2018 population and county area in sq miles. 
+\item ln\_2018\_pop: The calculated natural log of the 2018 population. 
+\item ln\_pop\_density: The calculated natural log of the 2018 population density. 
+\item pop\_dif: The calculated change in population from 2010 to 2018.
+\item abs\_pop\_dif: The absolute value of change in population from 2010 to 2018. 
+\item l\_2017: Reported Legionellosis infections in 2017 gathered from the Ohio Department of Health Infections Diseases Report.
+\item l\_2018: Reported Legionellosis infections in 2018 that was specially disclosed by the Ohio Department of Health and is not yet available online, so was not used in this project.
+\end{itemize}
+\smallskip
+
+Data set calculations (such as population densities and natural logs) were done in excel and then the data set was saved as a csv file to be analyzed in R.
+
+
+\section{Analysis}
+Data sets were plotted for visual examination, and correlational tests (such as Pearson’s, Kendall’s, and Spearman’s) were run to check for significance.
+
+\bigskip
+\begin{center}
+ \begin{tabular}{||c c c c c||} 
+ \hline
+ test & Infect vs Population & Infect vs Pop\_density & Infect vs Ln\_Pop & Infect vs Ln\_Pop\_density \\ [0.5ex] 
+ \hline\hline
+ Pearson & 1.43E-39 & 2.11E-30 & 5.44E-12 & 1.10E-11 \\ 
+ \hline
+ Kendall & 4.89E-14 & 1.33E-13 & 4.89E-14 & 1.33E-13 \\
+ \hline
+ Spearman & 1.73E-15 & 1.07E-14 & 1.73E-15 & 1.07E-14 \\ [1ex] 
+\end{tabular}
+\end{center}
+
+\subsection{Plots}
+\newline
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=11cm]{infpop.png}
+    \caption{Infections vs population}
+    \label{fig:infpop}
+\end{figure}
+
+\newline
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=11cm]{infpopd.png}
+    \caption{Infections vs population density}
+    \label{fig:infpopd}
+\end{figure}
+
+\newline
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=11cm]{inflnpop.png}
+    \caption{Infections vs Natural log of population}
+    \label{fig:infnlpop}
+\end{figure}
+
+\newline
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=11cm]{inflnpopd.png}
+    \caption{Infections vs Natural log of population density}
+    \label{fig:infnlpopd}
+\end{figure}
+
+\newpage
+
+\section{Conclusion} \label{sec:Conclusion}
+
+
+Rates of Legionellosis were very significantly related to population size, density and the natural logs of both.  Population size did seem to have the highest degree of significance. So this does provide evidence that this non-communicable disease is a greater public health issue in high population environments (urban), than it is in less populated environments (rural). However, this data does not provide much more insight beyond that.  
+
+The trends on the scatter plots do look to be non-linear, possibly suggesting that more heavily populated areas add compounding effects to infection rates.  However additional research and analysis would be needed to determine what effects are impacting these results.  
+
+\end{document}

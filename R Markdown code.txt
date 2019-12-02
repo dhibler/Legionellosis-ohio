@@ -1,0 +1,135 @@
+---
+title: 'Legionellosis: County and Population in Ohio'
+author: "David Hibler"
+date: "December 3, 2019"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(echo = TRUE)
+library(MASS)
+```
+# Data
+
+## Obtaining and Processing the Data
+
+pop_2010 = Ohio county population from [2010 census](https://www.census.gov/quickfacts/OH).  
+pop_2018 = [Estimated Ohio county population](http://worldpopulationreview.com/states/ohio/).   Retrieved 2019-01-24, from http://worldpopulationreview.com/states/ohio/  
+pop_dens = Population density calculated from 2018 population and county area in sq miles.   
+ln_2018_pop = The calculated natural log of the 2018 population.    
+ln_pop_density = The calculated natural log of the 2018 population density.   
+pop_dif = The calculated change in population from 2010 to 2018.   
+abs_pop_dif = The absolute value of change in population from 2010 to 2018.  
+l_2017 = Reported Legionellosis infections in 2017 gathered from the [Ohio Department of Health Infections Diseases Report](https://odh.ohio.gov/wps/portal/gov/odh/know-our-programs/infectious-diseases/Reports/2017-annual-summary).  
+l_2018 = Reported Legionellosis infections in 2018 that was specially disclosed by the Ohio Department of Health and is not yet available online, so was not used in this project.  
+
+Data set calculations (such as population densities and natural logs) were done in excell and then the data set was saved as a csv file to be analyzed in R. 
+
+## Analyzing the Data
+
+Data sets were ploted for visual examination, and correlational tests (such as Pearson's, Kendall's, and Spearman's) were run to check for signifigance.  
+
+```{r first code block}
+set.seed(37)
+
+setwd("C:/Users/hible/Documents/School/Pubhealth/PUBHLTH 8802 - GISD sem")      
+
+my_data <- read.csv("ohio_ld_2018.csv", header=TRUE)
+
+l_2017_v <- my_data$l_2017
+pop_2018_v <- my_data$pop_2018
+pop_density_v <- my_data$pop_density
+ln_2018_pop_v <- my_data$ln_2018_pop
+ln_pop_density_v <- my_data$ln_pop_density
+
+cor_p_values <- matrix(nrow=3, ncol=4)
+colnames(cor_p_values) <- c("Infections vs Population", "Infections vs Pop_density", "Infections vs Ln_Pop", "Infections vs Ln_Pop_density")
+rownames(cor_p_values) <- c("Pearson", "Kendall", "Spearman")
+
+i_p_p <- cor.test(l_2017_v,pop_2018_v, method = "pearson")
+cor_p_values[1,1] <- i_p_p$p.value
+i_p_k <- cor.test(l_2017_v,pop_2018_v, method = "kendall")
+cor_p_values[2,1] <- i_p_k$p.value
+i_p_s <- cor.test(l_2017_v,pop_2018_v, method = "spearman")
+cor_p_values[3,1] <- i_p_s$p.value
+
+i_p_p <- cor.test(l_2017_v,pop_density_v, method = "pearson")
+cor_p_values[1,2] <- i_p_p$p.value
+i_p_k <- cor.test(l_2017_v,pop_density_v, method = "kendall")
+cor_p_values[2,2] <- i_p_k$p.value
+i_p_s <- cor.test(l_2017_v,pop_density_v, method = "spearman")
+cor_p_values[3,2] <- i_p_s$p.value
+
+i_p_p <- cor.test(l_2017_v,ln_2018_pop_v, method = "pearson")
+cor_p_values[1,3] <- i_p_p$p.value
+i_p_k <- cor.test(l_2017_v,ln_2018_pop_v, method = "kendall")
+cor_p_values[2,3] <- i_p_k$p.value
+i_p_s <- cor.test(l_2017_v,ln_2018_pop_v, method = "spearman")
+cor_p_values[3,3] <- i_p_s$p.value
+
+cor.test(l_2017_v,ln_pop_density_v, method = "pearson")
+i_p_p <- cor.test(l_2017_v,ln_pop_density_v, method = "pearson")
+cor_p_values[1,4] <- i_p_p$p.value
+i_p_k <- cor.test(l_2017_v,ln_pop_density_v, method = "kendall")
+cor_p_values[2,4] <- i_p_k$p.value
+i_p_s <- cor.test(l_2017_v,ln_pop_density_v, method = "spearman")
+cor_p_values[3,4] <- i_p_s$p.value
+
+print(cor_p_values)
+
+```
+
+Infections were found to be highly significantly correlated with population size, population density,the natural log of the population size, and the natuarl log of the population density. 
+
+
+# Summary stats
+
+```{r}
+# summarize the data
+summary(my_data)
+mean(my_data$l_2017)
+mean(my_data$pop_2018)
+mean(my_data$pop_density)
+mean(my_data$ln_2018_pop)
+mean(my_data$ln_pop_density)
+# histograms
+hist(my_data$l_2017)
+hist(my_data$pop_2018)
+hist(my_data$pop_density)
+
+# variances, these should match what we supplied in the covariance matrix
+var(my_data$l_2017)
+var(my_data$pop_2018)
+var(my_data$pop_density)
+
+```
+
+# Plot
+
+```{r}
+scatter.smooth(x=my_data$pop_2018, y=my_data$l_2017, main="l_2017 ~ pop_2018")
+scatter.smooth(x=my_data$pop_density, y=my_data$l_2017, main="l_2017 ~ pop_density")
+scatter.smooth(x=my_data$ln_2018_pop, y=my_data$l_2017, main="l_2017 ~ ln_2018_pop")
+scatter.smooth(x=my_data$ln_pop_density, y=my_data$l_2017, main="l_2017 ~ ln_pop_density")
+```
+# Linear regression 
+
+```{r}
+linearMod_pop <- lm(l_2017 ~ pop_2018, data=my_data)  # build linear regression model on full data
+print(linearMod_pop)
+
+linearMod_popd <- lm(l_2017 ~ pop_density, data=my_data)  # build linear regression model on full data
+print(linearMod_popd)
+
+linearMod_lnpop <- lm(l_2017 ~ ln_2018_pop, data=my_data)  # build linear regression model on full data
+print(linearMod_lnpop)
+
+linearMod_lnpopd <- lm(l_2017 ~ ln_pop_density, data=my_data)  # build linear regression model on full data
+print(linearMod_lnpopd)
+
+
+```
+
